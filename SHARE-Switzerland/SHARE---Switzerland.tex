@@ -1,0 +1,1423 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={SHARE - Switzerland},
+  pdfauthor={Maximilian STEIN},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{SHARE - Switzerland}
+\author{Maximilian STEIN}
+\date{}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[sharp corners, borderline west={3pt}{0pt}{shadecolor}, enhanced, interior hidden, boxrule=0pt, breakable, frame hidden]}{\end{tcolorbox}}\fi
+
+This Quarto documentation contains all code used for data processing and
+visualizations included in the final report. Additional comments have
+been added to enhance code clarity and provide justifications where
+necessary, unless already addressed in the main report or vice versa.
+The complete report can be found in the folder titled
+`SHARE-Switzerland'.
+
+\hypertarget{set-up}{%
+\section{Set-Up}\label{set-up}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{swiss\_data\_full }\OtherTok{\textless{}{-}}\NormalTok{ easySHARE\_rel9\_0\_0 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(country\_mod }\SpecialCharTok{==} \DecValTok{756}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{employment\_status =} \FunctionTok{factor}\NormalTok{(ep005\_,}
+                                \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{97}\NormalTok{),}
+                                \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Retired"}\NormalTok{, }\StringTok{"Employed"}\NormalTok{, }\StringTok{"Unemployed"}\NormalTok{,}
+                                           \StringTok{"Disabled"}\NormalTok{, }\StringTok{"Homemaker"}\NormalTok{, }\StringTok{"Other"}\NormalTok{)),}
+    \AttributeTok{health\_rating =} \FunctionTok{factor}\NormalTok{(sphus, }\AttributeTok{levels =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}
+                           \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Excellent"}\NormalTok{, }\StringTok{"Very Good"}\NormalTok{, }\StringTok{"Good"}\NormalTok{, }\StringTok{"Fair"}\NormalTok{, }\StringTok{"Poor"}\NormalTok{)),}
+    \AttributeTok{Smoking\_status =} \FunctionTok{factor}\NormalTok{(smoking, }
+                     \AttributeTok{levels =} \FunctionTok{c}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{15}\NormalTok{, }\SpecialCharTok{{-}} \DecValTok{13}\NormalTok{, }\SpecialCharTok{{-}} \DecValTok{10}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{),}
+                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Na"}\NormalTok{, }\StringTok{"Na"}\NormalTok{, }\StringTok{"Na"}\NormalTok{,}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{)),}
+    \AttributeTok{education\_level =} \FunctionTok{factor}\NormalTok{(isced1997\_r,}
+      \AttributeTok{levels =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{6}\NormalTok{,}
+      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}
+        \StringTok{"No education"}\NormalTok{, }\StringTok{"Primary"}\NormalTok{, }\StringTok{"Lower secondary"}\NormalTok{, }\StringTok{"Upper secondary"}\NormalTok{,}
+        \StringTok{"Post{-}secondary"}\NormalTok{, }\StringTok{"Tertiary I"}\NormalTok{, }\StringTok{"Tertiary II"}\NormalTok{)),}
+    \AttributeTok{area\_type =} \FunctionTok{factor}\NormalTok{(iv009\_mod,}
+      \AttributeTok{levels =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}
+      \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Big City"}\NormalTok{, }\StringTok{"Suburbs"}\NormalTok{, }\StringTok{"Large Town"}\NormalTok{, }\StringTok{"Small Town"}\NormalTok{, }\StringTok{"Rural Area"}\NormalTok{)),}
+    \AttributeTok{gender =} \FunctionTok{factor}\NormalTok{(female, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Male"}\NormalTok{, }\StringTok{"Female"}\NormalTok{))}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{task-1}{%
+\subsection{Task 1}\label{task-1}}
+
+Briefly describe the dataset for your country of choice, the sampling
+design and representativeness. Provide descriptive statistics of the
+main variables of interest (household income, gender, age,
+employment,\ldots) and number of observations. (1 pt)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Variable Selection for Descriptives}
+\NormalTok{swiss\_data\_descriptives }\OtherTok{\textless{}{-}}\NormalTok{ easySHARE\_rel9\_0\_0 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(country\_mod }\SpecialCharTok{==} \DecValTok{756}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(mergeid, wave, female, age, ep005\_, thinc\_m,}
+\NormalTok{         eduyears\_mod, sphus, hhsize, hc002\_mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Clean dataset with wave info}
+\NormalTok{swiss\_data\_full }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_full }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(wave)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{female =} \FunctionTok{as.numeric}\NormalTok{(female)}
+\NormalTok{  )}
+
+\CommentTok{\# Function to compute stats per variable per wave, keeping all 9 waves}
+\NormalTok{wave\_stats }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data, variable\_name) \{}
+\NormalTok{  data }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{group\_by}\NormalTok{(wave) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{summarise}\NormalTok{(}
+      \AttributeTok{Variable =}\NormalTok{ variable\_name,}
+      \AttributeTok{Obs =} \FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(.data[[variable\_name]])),}
+      \AttributeTok{Mean =} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(.data[[variable\_name]], }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{2}\NormalTok{),}
+      \StringTok{\textasciigrave{}}\AttributeTok{Std. Dev.}\StringTok{\textasciigrave{}} \OtherTok{=} \FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(.data[[variable\_name]], }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{2}\NormalTok{),}
+      \AttributeTok{Min =} \FunctionTok{round}\NormalTok{(}\FunctionTok{min}\NormalTok{(.data[[variable\_name]], }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{2}\NormalTok{),}
+      \AttributeTok{Max =} \FunctionTok{round}\NormalTok{(}\FunctionTok{max}\NormalTok{(.data[[variable\_name]], }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{2}\NormalTok{),}
+      \AttributeTok{.groups =} \StringTok{"drop"}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{    tidyr}\SpecialCharTok{::}\FunctionTok{complete}\NormalTok{(}\AttributeTok{wave =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{9}\NormalTok{,}
+                    \AttributeTok{fill =} \FunctionTok{list}\NormalTok{(}\AttributeTok{Obs =} \DecValTok{0}\NormalTok{, }\AttributeTok{Mean =} \ConstantTok{NA}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{Std. Dev.}\StringTok{\textasciigrave{}} \OtherTok{=} \ConstantTok{NA}\NormalTok{, }\AttributeTok{Min =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{Max =} \ConstantTok{NA}\NormalTok{))}
+\NormalTok{\}}
+
+\CommentTok{\# Compute for all variables}
+\NormalTok{age\_stats }\OtherTok{\textless{}{-}} \FunctionTok{wave\_stats}\NormalTok{(swiss\_data\_full }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(age }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{, age }\SpecialCharTok{!=} \SpecialCharTok{{-}}\DecValTok{15}\NormalTok{), }\StringTok{"age"}\NormalTok{)}
+\NormalTok{income\_stats }\OtherTok{\textless{}{-}} \FunctionTok{wave\_stats}\NormalTok{(swiss\_data\_full }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(thinc\_m }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{), }\StringTok{"thinc\_m"}\NormalTok{)}
+\NormalTok{edu\_stats }\OtherTok{\textless{}{-}} \FunctionTok{wave\_stats}\NormalTok{(swiss\_data\_full }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(eduyears\_mod }\SpecialCharTok{\textgreater{}=} \DecValTok{0}\NormalTok{), }\StringTok{"eduyears\_mod"}\NormalTok{)}
+\NormalTok{hhsize\_stats }\OtherTok{\textless{}{-}} \FunctionTok{wave\_stats}\NormalTok{(swiss\_data\_full }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(hhsize }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{), }\StringTok{"hhsize"}\NormalTok{)}
+\NormalTok{female\_stats }\OtherTok{\textless{}{-}} \FunctionTok{wave\_stats}\NormalTok{(swiss\_data\_full, }\StringTok{"female"}\NormalTok{)}
+\NormalTok{doctorv\_stats }\OtherTok{\textless{}{-}} \FunctionTok{wave\_stats}\NormalTok{(swiss\_data\_full }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(hc002\_mod }\SpecialCharTok{\textgreater{}=} \DecValTok{0}\NormalTok{), }\StringTok{"hc002\_mod"}\NormalTok{)}
+
+\CommentTok{\# Combine into one table}
+\NormalTok{all\_stats }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(}
+\NormalTok{  age\_stats, female\_stats, income\_stats, edu\_stats, hhsize\_stats, doctorv\_stats}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(wave, Variable)}
+
+\CommentTok{\# Print the table}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Descriptive Statistics by Wave – Switzerland Sample}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Descriptive Statistics by Wave – Switzerland Sample
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(all\_stats, }\AttributeTok{n =} \ConstantTok{Inf}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 54 x 7
+    wave Variable       Obs     Mean `Std. Dev.`    Min       Max
+   <int> <chr>        <int>    <dbl>       <dbl>  <dbl>     <dbl>
+ 1     1 age            995    64.3        11.3   29.4       95.8
+ 2     1 eduyears_mod   707    11.1         4.6    1         25  
+ 3     1 female         997     0.55        0.5    0          1  
+ 4     1 hc002_mod      995     4.77        8.05   0         98  
+ 5     1 hhsize         997     1.98        0.9    1          7  
+ 6     1 thinc_m        996 52178.      48950.    24.1   466756. 
+ 7     2 age           1498    64.7        10.7   33.4       98.2
+ 8     2 eduyears_mod  1441    11.3         4.63   1         25  
+ 9     2 female        1498     0.56        0.5    0          1  
+10     2 hc002_mod     1489     4.45        7.8    0         98  
+11     2 hhsize        1498     2.1         0.99   1          6  
+12     2 thinc_m       1489 54053.      66893.     5.77  662811. 
+13     3 age           1324    66.3        10.6   29.3      100. 
+14     3 eduyears_mod  1214    11.3         4.63   1         25  
+15     3 female        1324     0.57        0.49   0          1  
+16     3 hhsize        1324     2.02        0.89   1          6  
+17     3 <NA>             0    NA          NA     NA         NA  
+18     3 <NA>             0    NA          NA     NA         NA  
+19     4 age           3784    65.0        10.5   30.4      102. 
+20     4 eduyears_mod  3481     8.57        5.31   0         25  
+21     4 female        3784     0.55        0.5    0          1  
+22     4 hc002_mod     3764     4.8         8.64   0         98  
+23     4 hhsize        3784     2.12        0.94   1         10  
+24     4 thinc_m       3778 69531.      57105.     0.15  659488. 
+25     5 age           3048    66.5        10.0   33.7       97.4
+26     5 eduyears_mod  2825     8.67        5.33   0         25  
+27     5 female        3048     0.55        0.5    0          1  
+28     5 hc002_mod     3030     5.72        8.83   0         98  
+29     5 hhsize        3048     2.07        0.85   1          7  
+30     5 thinc_m       3029 60035.      44212.    53.8   737836. 
+31     6 age           2803    68.4         9.84  30.6       99.6
+32     6 eduyears_mod  2608     8.69        5.35   0         25  
+33     6 female        2803     0.55        0.5    0          1  
+34     6 hc002_mod     2788     5.45        8.57   0         98  
+35     6 hhsize        2803     1.98        0.79   1          7  
+36     6 thinc_m       2795 54283.      41030.     3.75  511863. 
+37     7 age           2402    70.0         9.57  37.8      100. 
+38     7 eduyears_mod  2239     8.73        5.34   0         25  
+39     7 female        2402     0.55        0.5    0          1  
+40     7 hc002_mod     2383     5.66       10.4    0         98  
+41     7 hhsize        2402     1.9         0.74   1          7  
+42     7 thinc_m        754 50251.      38634.   111.    272283. 
+43     8 age           2095    70.6         9.83  32.6       99.3
+44     8 eduyears_mod  1962     8.73        5.47   0         25  
+45     8 female        2095     0.54        0.5    0          1  
+46     8 hc002_mod     2074     6.04       11.2    0         98  
+47     8 hhsize        2095     1.87        0.75   1          7  
+48     8 thinc_m       2084 51370.      34975.    16.1   389324. 
+49     9 age           1844    71.9         9.36  36.9      101. 
+50     9 eduyears_mod  1732     8.63        5.51   1         25  
+51     9 female        1844     0.55        0.5    0          1  
+52     9 hc002_mod     1820     5.7         8.62   0         98  
+53     9 hhsize        1844     1.82        0.73   1          7  
+54     9 thinc_m       1840 57239.      76059.    25.8  2264857. 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{health\_descriptives }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_full }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(health\_rating)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(wave, health\_rating) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tidyr}\SpecialCharTok{::}\FunctionTok{complete}\NormalTok{(}\AttributeTok{wave =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{9}\NormalTok{, health\_rating, }\AttributeTok{fill =} \FunctionTok{list}\NormalTok{(}\AttributeTok{count =} \DecValTok{0}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(wave) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{percent =} \FunctionTok{round}\NormalTok{(count }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(count) }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(wave, health\_rating, percent) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tidyr}\SpecialCharTok{::}\FunctionTok{pivot\_wider}\NormalTok{(}
+    \AttributeTok{names\_from =}\NormalTok{ health\_rating,}
+    \AttributeTok{values\_from =}\NormalTok{ percent,}
+    \AttributeTok{values\_fill =} \DecValTok{0}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(wave)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Self{-}Rated Health by Wave (in \%)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Self-Rated Health by Wave (in %)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(health\_descriptives, }\AttributeTok{n =} \ConstantTok{Inf}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 9 x 6
+# Groups:   wave [9]
+   wave Excellent `Very Good`  Good  Fair  Poor
+  <int>     <dbl>       <dbl> <dbl> <dbl> <dbl>
+1     1      14.7        27    42.3  13.1   2.9
+2     2      15.4        30.3  36.7  13.6   4  
+3     3      11.4        24.5  41.1  18.9   4.1
+4     4      12.4        30.7  39.4  14.5   3  
+5     5      11.4        29    42.6  14.1   2.9
+6     6       9.9        29.1  41.9  15.6   3.4
+7     7       9.6        25.5  42.8  17.4   4.6
+8     8       9.8        29.5  41.1  15.7   4  
+9     9       9          27.6  43.3  16.3   3.9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{employment\_descriptives }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_full }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(employment\_status)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(wave, employment\_status) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{count =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tidyr}\SpecialCharTok{::}\FunctionTok{complete}\NormalTok{(}\AttributeTok{wave =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{9}\NormalTok{, employment\_status, }\AttributeTok{fill =} \FunctionTok{list}\NormalTok{(}\AttributeTok{count =} \DecValTok{0}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(wave) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{percent =} \FunctionTok{round}\NormalTok{(count }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(count) }\SpecialCharTok{*} \DecValTok{100}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(wave, employment\_status, percent) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tidyr}\SpecialCharTok{::}\FunctionTok{pivot\_wider}\NormalTok{(}
+    \AttributeTok{names\_from =}\NormalTok{ employment\_status,}
+    \AttributeTok{values\_from =}\NormalTok{ percent,}
+    \AttributeTok{values\_fill =} \DecValTok{0}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(wave)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Employment Status by Wave (in \%)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Employment Status by Wave (in %)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(employment\_descriptives, }\AttributeTok{n =} \ConstantTok{Inf}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 9 x 7
+# Groups:   wave [9]
+   wave Retired Employed Unemployed Disabled Homemaker Other
+  <int>   <dbl>    <dbl>      <dbl>    <dbl>     <dbl> <dbl>
+1     1    45.8     40          1.5      3.3       9.3   0  
+2     2    41.1     41.8        1.8      2.6      11.7   1.1
+3     3   NaN      NaN        NaN      NaN       NaN   NaN  
+4     4    44.7     42.2        1.6      2.1       8.5   1  
+5     5    50.2     38.7        1.1      1.9       7.6   0.6
+6     6    54.8     34.3        0.9      1.7       7.3   0.9
+7     7    59.3     28.9        0.9      2         7.7   1.2
+8     8    63.3     27.6        1        1.8       5.2   1  
+9     9    69.9     22.3        0.9      1.6       4.7   0.6
+\end{verbatim}
+
+\hypertarget{task-2}{%
+\subsection{Task 2}\label{task-2}}
+
+Graph the average household income in your country of reference for a
+wave of your choice. Choose 2 other countries in the database and report
+the average income in each of the two countries for the same wave. Can
+you rank the three countries in terms of income level? Discuss the
+statistical significance of the ranking.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Count valid income responses per wave for France and Germany}
+\NormalTok{income\_counts\_fr\_it }\OtherTok{\textless{}{-}}\NormalTok{ easySHARE\_rel9\_0\_0 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}
+\NormalTok{    country\_mod }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{250}\NormalTok{, }\DecValTok{380}\NormalTok{),     }\CommentTok{\# 250 = France, 276 = Germany}
+\NormalTok{    thinc\_m }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{,}
+    \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(wave)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{country\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      country\_mod }\SpecialCharTok{==} \DecValTok{250} \SpecialCharTok{\textasciitilde{}} \StringTok{"France"}\NormalTok{,}
+\NormalTok{      country\_mod }\SpecialCharTok{==} \DecValTok{380} \SpecialCharTok{\textasciitilde{}} \StringTok{"Italy"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(wave, country\_label) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Income\_Respondents =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{  tidyr}\SpecialCharTok{::}\FunctionTok{pivot\_wider}\NormalTok{(}
+    \AttributeTok{names\_from =}\NormalTok{ country\_label,}
+    \AttributeTok{values\_from =}\NormalTok{ Income\_Respondents,}
+    \AttributeTok{values\_fill =} \DecValTok{0}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(wave)}
+
+\CommentTok{\# Display result}
+\FunctionTok{print}\NormalTok{(income\_counts\_fr\_it)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 8 x 3
+   wave France Italy
+  <int>  <int> <int>
+1     1   3106  2486
+2     2   2965  2859
+3     4   5846  3488
+4     5   4496  4485
+5     6   3942  4986
+6     7   1142  1530
+7     8   3011  2017
+8     9   2904  3382
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Filtering for Wave 4 and Corresponding Countries}
+\NormalTok{wave4\_income\_swifraita }\OtherTok{\textless{}{-}}\NormalTok{ easySHARE\_rel9\_0\_0 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(wave }\SpecialCharTok{==} \DecValTok{4}\NormalTok{,}
+\NormalTok{         country\_mod }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{756}\NormalTok{, }\DecValTok{250}\NormalTok{, }\DecValTok{380}\NormalTok{),}
+\NormalTok{         thinc\_m }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{country\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      country\_mod }\SpecialCharTok{==} \DecValTok{756} \SpecialCharTok{\textasciitilde{}} \StringTok{"Switzerland"}\NormalTok{,}
+\NormalTok{      country\_mod }\SpecialCharTok{==} \DecValTok{250} \SpecialCharTok{\textasciitilde{}} \StringTok{"France"}\NormalTok{,}
+\NormalTok{      country\_mod }\SpecialCharTok{==} \DecValTok{380} \SpecialCharTok{\textasciitilde{}} \StringTok{"Italy"}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\CommentTok{\# Summary Statistic of Second Order Moments and CI}
+\NormalTok{tri\_income\_summary }\OtherTok{\textless{}{-}}\NormalTok{ wave4\_income\_swifraita }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(country\_label) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{Obs =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{Mean =} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(thinc\_m, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{2}\NormalTok{),}
+    \AttributeTok{SD =} \FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(thinc\_m, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{2}\NormalTok{),}
+    \AttributeTok{SE =}\NormalTok{ SD }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(Obs),}
+    \AttributeTok{CI\_lower =} \FunctionTok{round}\NormalTok{(Mean }\SpecialCharTok{{-}} \FloatTok{1.96} \SpecialCharTok{*}\NormalTok{ SE, }\DecValTok{2}\NormalTok{),}
+    \AttributeTok{CI\_upper =} \FunctionTok{round}\NormalTok{(Mean }\SpecialCharTok{+} \FloatTok{1.96} \SpecialCharTok{*}\NormalTok{ SE, }\DecValTok{2}\NormalTok{),}
+    \AttributeTok{.groups =} \StringTok{"drop"}
+\NormalTok{  )}
+
+\CommentTok{\# Print the updated table}
+\FunctionTok{print}\NormalTok{(tri\_income\_summary)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 3 x 7
+  country_label   Obs   Mean     SD    SE CI_lower CI_upper
+  <chr>         <int>  <dbl>  <dbl> <dbl>    <dbl>    <dbl>
+1 France         5846 37144. 28315.  370.   36418.   37870.
+2 Italy          3488 33819. 38825.  657.   32531.   35108.
+3 Switzerland    3778 69531. 57105.  929.   67710.   71352.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Graph Plotting}
+\FunctionTok{ggplot}\NormalTok{(tri\_income\_summary, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(country\_label, }\SpecialCharTok{{-}}\NormalTok{Mean), }\AttributeTok{y =}\NormalTok{ Mean, }\AttributeTok{fill =}\NormalTok{ country\_label)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.6}\NormalTok{, }\AttributeTok{color =} \StringTok{"gray30"}\NormalTok{, }\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}
+    \AttributeTok{ymin =}\NormalTok{ Mean }\SpecialCharTok{{-}} \FloatTok{1.96} \SpecialCharTok{*}\NormalTok{ SD }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(Obs),}
+    \AttributeTok{ymax =}\NormalTok{ Mean }\SpecialCharTok{+} \FloatTok{1.96} \SpecialCharTok{*}\NormalTok{ SD }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(Obs)}
+\NormalTok{  ), }\AttributeTok{width =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{color =} \StringTok{"gray30"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}
+    \StringTok{"Switzerland"} \OtherTok{=} \StringTok{"\#1f3b57"}\NormalTok{,}
+    \StringTok{"France"} \OtherTok{=} \StringTok{"\#3f6aa5"}\NormalTok{,}
+    \StringTok{"Italy"} \OtherTok{=} \StringTok{"\#7baad3"}
+\NormalTok{  )) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\FunctionTok{comma\_format}\NormalTok{()) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"How Average Household Incomes Stack Up in Europe"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"Wave 4 – Mean Income in EUR with 95\% Confidence Intervals"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Household Income (EUR)"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_family =} \StringTok{"Helvetica"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{14}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#3b3b3b"}\NormalTok{),}
+    \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{11}\NormalTok{, }\AttributeTok{margin =} \FunctionTok{margin}\NormalTok{(}\AttributeTok{b =} \DecValTok{10}\NormalTok{)),}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{9}\NormalTok{, }\AttributeTok{color =} \StringTok{"gray20"}\NormalTok{),}
+    \AttributeTok{axis.title.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{10}\NormalTok{, }\AttributeTok{face =} \StringTok{"italic"}\NormalTok{, }\AttributeTok{color =} \StringTok{"gray30"}\NormalTok{),}
+    \AttributeTok{panel.grid.major.y =} \FunctionTok{element\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"gray85"}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.3}\NormalTok{),}
+    \AttributeTok{panel.grid.minor =} \FunctionTok{element\_blank}\NormalTok{()}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
+i Please use the `linewidth` argument instead.
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{SHARE---Switzerland_files/figure-pdf/Task 2.1 - Comparative Income Analysis between Switzerland, France and Italy-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"SWIFRAITA\_income\_comparison.png"}\NormalTok{, }\AttributeTok{width =} \DecValTok{7}\NormalTok{, }\AttributeTok{height =} \DecValTok{5}\NormalTok{, }\AttributeTok{dpi =} \DecValTok{300}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{task-3}{%
+\subsection{Task 3}\label{task-3}}
+
+Now you will focus on your country of reference. The variable hc002\_mod
+measures the frequency of visits to the doctor. Propose an econometric
+analysis using OLS to explain the determinants of the frequency of
+visits and discuss your results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{swiss\_data\_full }\OtherTok{\textless{}{-}}\NormalTok{ easySHARE\_rel9\_0\_0 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(country\_mod }\SpecialCharTok{==} \DecValTok{756}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{employment\_status =} \FunctionTok{factor}\NormalTok{(ep005\_,}
+                                \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{97}\NormalTok{),}
+                                \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Retired"}\NormalTok{, }\StringTok{"Employed"}\NormalTok{, }\StringTok{"Unemployed"}\NormalTok{,}
+                                           \StringTok{"Disabled"}\NormalTok{, }\StringTok{"Homemaker"}\NormalTok{, }\StringTok{"Other"}\NormalTok{)),}
+    \AttributeTok{health\_rating =} \FunctionTok{factor}\NormalTok{(sphus, }\AttributeTok{levels =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}
+                           \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Excellent"}\NormalTok{, }\StringTok{"Very Good"}\NormalTok{, }\StringTok{"Good"}\NormalTok{, }\StringTok{"Fair"}\NormalTok{, }\StringTok{"Poor"}\NormalTok{)),}
+    \AttributeTok{area =} \FunctionTok{factor}\NormalTok{(iv009\_mod, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{),}
+                             \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"A big city"}\NormalTok{, }\StringTok{"The suburbs or outskirts of a big city"}\NormalTok{, }\StringTok{"A large town"}\NormalTok{, }\StringTok{"A small town"}\NormalTok{, }\StringTok{"A rural area or village"}\NormalTok{))}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{swiss\_data\_model }\OtherTok{\textless{}{-}}\NormalTok{ easySHARE\_rel9\_0\_0 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(country\_mod }\SpecialCharTok{==} \DecValTok{756}\NormalTok{, }\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(hc002\_mod)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{female =} \FunctionTok{as.numeric}\NormalTok{(female),}
+    \AttributeTok{retired =} \FunctionTok{ifelse}\NormalTok{(ep005\_ }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{),}
+    \AttributeTok{disabled =} \FunctionTok{ifelse}\NormalTok{(ep005\_ }\SpecialCharTok{==} \DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{),}
+    \AttributeTok{homemaker =} \FunctionTok{ifelse}\NormalTok{(ep005\_ }\SpecialCharTok{==} \DecValTok{5}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(hc002\_mod, female, age, thinc\_m, eduyears\_mod,}
+\NormalTok{         chronic\_mod, iadla, retired, disabled, homemaker) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{na.omit}\NormalTok{()}
+
+\CommentTok{\# Baseline Income OLS{-}Model}
+\NormalTok{baseline\_ols }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(hc002\_mod }\SpecialCharTok{\textasciitilde{}}\NormalTok{ female }\SpecialCharTok{+}\NormalTok{ age }\SpecialCharTok{+}\NormalTok{ thinc\_m }\SpecialCharTok{+}\NormalTok{ eduyears\_mod }\SpecialCharTok{+} 
+\NormalTok{                  chronic\_mod }\SpecialCharTok{+}\NormalTok{ iadla }\SpecialCharTok{+}\NormalTok{ retired }\SpecialCharTok{+}\NormalTok{ disabled,}
+                \AttributeTok{data =}\NormalTok{ swiss\_data\_model)}
+
+\FunctionTok{summary}\NormalTok{(baseline\_ols)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = hc002_mod ~ female + age + thinc_m + eduyears_mod + 
+    chronic_mod + iadla + retired + disabled, data = swiss_data_model)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-26.024  -3.413  -1.747   0.359 113.712 
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   1.633e+00  5.024e-01   3.251 0.001151 ** 
+female        6.378e-01  1.275e-01   5.004 5.65e-07 ***
+age           2.343e-02  7.662e-03   3.058 0.002233 ** 
+thinc_m      -8.693e-07  1.246e-06  -0.698 0.485371    
+eduyears_mod  3.761e-03  7.874e-03   0.478 0.632877    
+chronic_mod   1.427e+00  5.476e-02  26.062  < 2e-16 ***
+iadla        -2.289e-01  5.936e-02  -3.857 0.000115 ***
+retired       5.950e-01  1.661e-01   3.583 0.000341 ***
+disabled      9.179e+00  4.718e-01  19.457  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.754 on 19786 degrees of freedom
+Multiple R-squared:  0.2352,    Adjusted R-squared:  0.2349 
+F-statistic: 760.8 on 8 and 19786 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Logged Income OLS{-}Model}
+\NormalTok{logged\_income\_ols }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(hc002\_mod }\SpecialCharTok{\textasciitilde{}}\NormalTok{ female }\SpecialCharTok{+}\NormalTok{ age }\SpecialCharTok{+} \FunctionTok{log}\NormalTok{(thinc\_m }\SpecialCharTok{+} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ eduyears\_mod }\SpecialCharTok{+}
+\NormalTok{                        chronic\_mod }\SpecialCharTok{+}\NormalTok{ iadla }\SpecialCharTok{+}\NormalTok{ retired }\SpecialCharTok{+}\NormalTok{ disabled,}
+                        \AttributeTok{data =}\NormalTok{ swiss\_data\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in log(thinc_m + 1): NaNs produced
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(logged\_income\_ols)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = hc002_mod ~ female + age + log(thinc_m + 1) + eduyears_mod + 
+    chronic_mod + iadla + retired + disabled, data = swiss_data_model)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-37.168  -3.498  -1.927   0.693  96.180 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       1.045414   0.867005   1.206  0.22792    
+female            0.782336   0.137980   5.670 1.45e-08 ***
+age               0.033515   0.008471   3.956 7.64e-05 ***
+log(thinc_m + 1) -0.028787   0.059111  -0.487  0.62626    
+eduyears_mod      0.019668   0.008540   2.303  0.02129 *  
+chronic_mod       1.478588   0.064119  23.060  < 2e-16 ***
+iadla            -1.525472   0.107458 -14.196  < 2e-16 ***
+retired           0.530611   0.178026   2.981  0.00288 ** 
+disabled          9.770983   0.495807  19.707  < 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.725 on 16814 degrees of freedom
+  (2972 observations deleted due to missingness)
+Multiple R-squared:  0.06425,   Adjusted R-squared:  0.06381 
+F-statistic: 144.3 on 8 and 16814 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{aic\_raw }\OtherTok{\textless{}{-}} \FunctionTok{AIC}\NormalTok{(baseline\_ols)}
+\NormalTok{bic\_raw }\OtherTok{\textless{}{-}} \FunctionTok{BIC}\NormalTok{(baseline\_ols)}
+
+\NormalTok{aic\_log }\OtherTok{\textless{}{-}} \FunctionTok{AIC}\NormalTok{(logged\_income\_ols)}
+\NormalTok{bic\_log }\OtherTok{\textless{}{-}} \FunctionTok{BIC}\NormalTok{(logged\_income\_ols)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"AIC comparison:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+AIC comparison:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Raw income model: "}\NormalTok{, aic\_raw, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Raw income model:  142078.9 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Log income model: "}\NormalTok{, aic\_log, }\StringTok{"}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Log income model:  120637.5 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"BIC comparison:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+BIC comparison:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Raw income model: "}\NormalTok{, bic\_raw, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Raw income model:  142157.8 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Log income model: "}\NormalTok{, bic\_log, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Log income model:  120714.8 
+\end{verbatim}
+
+\hypertarget{exercise-4}{%
+\subsection{Exercise 4}\label{exercise-4}}
+
+We now introduce a 10€ subsidy given to patients for each visit to the
+doctor. We want to analyze the consequences of introducing such a
+subsidy on inequality and poverty. For now, we assume no behavioral
+response (i.e.~no change in the number of visits to the doctor)
+
+\hypertarget{task-a}{%
+\subsubsection{Task a)}\label{task-a}}
+
+How does the subsidy affect income for each individual? Describe the
+average change in income for the whole population, and for subgroups of
+the population defined according to characteristics you find relevant.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Computation of Total Household Subsidy dependant on Household Size}
+\NormalTok{hh\_subsidy }\OtherTok{\textless{}{-}}\NormalTok{ easySHARE\_rel9\_0\_0 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(country\_mod }\SpecialCharTok{==} \DecValTok{756}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(hhid, wave) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{total\_visits =} \FunctionTok{sum}\NormalTok{(hc002\_mod, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{hhsize =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{.groups =} \StringTok{"drop"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{per\_capita\_subsidy =} \DecValTok{10} \SpecialCharTok{*}\NormalTok{ total\_visits }\SpecialCharTok{/}\NormalTok{ hhsize}
+\NormalTok{  )}
+  
+\NormalTok{swiss\_data\_subsidy }\OtherTok{\textless{}{-}}\NormalTok{ easySHARE\_rel9\_0\_0 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(country\_mod }\SpecialCharTok{==} \DecValTok{756}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{left\_join}\NormalTok{(hh\_subsidy, }\AttributeTok{by =} \FunctionTok{c}\NormalTok{(}\StringTok{"hhid"}\NormalTok{, }\StringTok{"wave"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{adjusted\_income =}\NormalTok{ thinc\_m }\SpecialCharTok{+}\NormalTok{ per\_capita\_subsidy,}
+    \AttributeTok{income\_diff =}\NormalTok{ adjusted\_income }\SpecialCharTok{{-}}\NormalTok{ thinc\_m}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hh\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{total\_distributed =}\NormalTok{ per\_capita\_subsidy }\SpecialCharTok{*}\NormalTok{ hhsize,}
+         \AttributeTok{actual\_total =} \DecValTok{10} \SpecialCharTok{*}\NormalTok{ total\_visits) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{diff =} \FunctionTok{sum}\NormalTok{(actual\_total }\SpecialCharTok{{-}}\NormalTok{ total\_distributed))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 1
+   diff
+  <dbl>
+1     0
+\end{verbatim}
+
+The difference is 0, so the subsidy splitting under assumptions and
+specification is perfectly consistent.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{swiss\_data\_subsidy }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(thinc\_m), thinc\_m }\SpecialCharTok{\textgreater{}=} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{gender\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      female }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"Female"}\NormalTok{,}
+\NormalTok{      female }\SpecialCharTok{==} \DecValTok{0} \SpecialCharTok{\textasciitilde{}} \StringTok{"Male"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    ),}
+    \AttributeTok{smoking\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      smoking }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"Smoker"}\NormalTok{,}
+\NormalTok{      smoking }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"Non{-}Smoker"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"Other"}
+\NormalTok{    ),}
+    \AttributeTok{education\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      isced1997\_r }\SpecialCharTok{==} \DecValTok{0} \SpecialCharTok{\textasciitilde{}} \StringTok{"No education"}\NormalTok{,}
+\NormalTok{      isced1997\_r }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"Primary"}\NormalTok{,}
+\NormalTok{      isced1997\_r }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"Lower secondary"}\NormalTok{,}
+\NormalTok{      isced1997\_r }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Upper secondary"}\NormalTok{,}
+\NormalTok{      isced1997\_r }\SpecialCharTok{==} \DecValTok{4} \SpecialCharTok{\textasciitilde{}} \StringTok{"Post{-}secondary"}\NormalTok{,}
+\NormalTok{      isced1997\_r }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"Tertiary I"}\NormalTok{,}
+\NormalTok{      isced1997\_r }\SpecialCharTok{==} \DecValTok{6} \SpecialCharTok{\textasciitilde{}} \StringTok{"Tertiary II"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"Unknown"}
+\NormalTok{    ),}
+    \AttributeTok{area\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      iv009\_mod }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"Big City"}\NormalTok{,}
+\NormalTok{      iv009\_mod }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"Suburbs"}\NormalTok{,}
+\NormalTok{      iv009\_mod }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Large Town"}\NormalTok{,}
+\NormalTok{      iv009\_mod }\SpecialCharTok{==} \DecValTok{4} \SpecialCharTok{\textasciitilde{}} \StringTok{"Small Town"}\NormalTok{,}
+\NormalTok{      iv009\_mod }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"Rural Area"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"Other"}
+\NormalTok{    ),}
+    \AttributeTok{health\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      sphus }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"Excellent"}\NormalTok{,}
+\NormalTok{      sphus }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"Very Good"}\NormalTok{,}
+\NormalTok{      sphus }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Good"}\NormalTok{,}
+\NormalTok{      sphus }\SpecialCharTok{==} \DecValTok{4} \SpecialCharTok{\textasciitilde{}} \StringTok{"Fair"}\NormalTok{,}
+\NormalTok{      sphus }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"Poor"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    ),}
+    \AttributeTok{income\_percentile =} \FunctionTok{ifelse}\NormalTok{(thinc\_m }\SpecialCharTok{\textgreater{}=} \DecValTok{0}\NormalTok{, }\FunctionTok{ntile}\NormalTok{(thinc\_m, }\DecValTok{10}\NormalTok{), }\ConstantTok{NA\_integer\_}\NormalTok{),}
+    \AttributeTok{income\_percentile\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      income\_percentile }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"1. Percentile"}\NormalTok{,}
+\NormalTok{      income\_percentile }\SpecialCharTok{==} \DecValTok{2} \SpecialCharTok{\textasciitilde{}} \StringTok{"2. Percentile"}\NormalTok{,}
+\NormalTok{      income\_percentile }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"3. Percentile"}\NormalTok{,}
+\NormalTok{      income\_percentile }\SpecialCharTok{==} \DecValTok{4} \SpecialCharTok{\textasciitilde{}} \StringTok{"4. Percentile"}\NormalTok{,}
+\NormalTok{      income\_percentile }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"5. Percentile"}\NormalTok{,}
+\NormalTok{      income\_percentile }\SpecialCharTok{==} \DecValTok{6} \SpecialCharTok{\textasciitilde{}} \StringTok{"6. Percentile"}\NormalTok{,}
+\NormalTok{      income\_percentile }\SpecialCharTok{==} \DecValTok{7} \SpecialCharTok{\textasciitilde{}} \StringTok{"7. Percentile"}\NormalTok{,}
+\NormalTok{      income\_percentile }\SpecialCharTok{==} \DecValTok{8} \SpecialCharTok{\textasciitilde{}} \StringTok{"8. Percentile"}\NormalTok{,}
+\NormalTok{      income\_percentile }\SpecialCharTok{==} \DecValTok{9} \SpecialCharTok{\textasciitilde{}} \StringTok{"9. Percentile"}\NormalTok{,}
+\NormalTok{      income\_percentile }\SpecialCharTok{==} \DecValTok{10} \SpecialCharTok{\textasciitilde{}} \StringTok{"10. Percentile"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    ),}
+    \AttributeTok{age\_group\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{    age }\SpecialCharTok{\textless{}} \DecValTok{50} \SpecialCharTok{\textasciitilde{}} \StringTok{" Under 50"}\NormalTok{,}
+\NormalTok{    age }\SpecialCharTok{\textgreater{}=} \DecValTok{50} \SpecialCharTok{\&}\NormalTok{ age }\SpecialCharTok{\textless{}} \DecValTok{60} \SpecialCharTok{\textasciitilde{}} \StringTok{"50–59"}\NormalTok{,}
+\NormalTok{    age }\SpecialCharTok{\textgreater{}=} \DecValTok{60} \SpecialCharTok{\&}\NormalTok{ age }\SpecialCharTok{\textless{}} \DecValTok{70} \SpecialCharTok{\textasciitilde{}} \StringTok{"60–69"}\NormalTok{,}
+\NormalTok{    age }\SpecialCharTok{\textgreater{}=} \DecValTok{70} \SpecialCharTok{\&}\NormalTok{ age }\SpecialCharTok{\textless{}} \DecValTok{80} \SpecialCharTok{\textasciitilde{}} \StringTok{"70–79"}\NormalTok{,}
+\NormalTok{    age }\SpecialCharTok{\textgreater{}=} \DecValTok{80} \SpecialCharTok{\&}\NormalTok{ age }\SpecialCharTok{\textless{}} \DecValTok{90} \SpecialCharTok{\textasciitilde{}} \StringTok{"80–89"}\NormalTok{,}
+    \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    ),}
+    \AttributeTok{external\_help\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{    sp002\_mod }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"External Help"}\NormalTok{,}
+\NormalTok{    sp002\_mod }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"No External Help"}\NormalTok{,}
+    \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    ),}
+    \AttributeTok{partner\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{    partnerinhh }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"With Partner"}\NormalTok{,}
+\NormalTok{    partnerinhh }\SpecialCharTok{==} \DecValTok{3} \SpecialCharTok{\textasciitilde{}} \StringTok{"Without Partner"}\NormalTok{,}
+    \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \ConstantTok{NA\_character\_}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Overall Mean}
+\NormalTok{mean\_overall }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{Group =} \StringTok{"Overall"}\NormalTok{,}
+  \AttributeTok{Subgroup =} \StringTok{"Sample"}\NormalTok{,}
+  \AttributeTok{avg\_subsidy =} \FunctionTok{mean}\NormalTok{(swiss\_data\_subsidy}\SpecialCharTok{$}\NormalTok{income\_diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{)}
+
+\CommentTok{\# Gender Means}
+\NormalTok{gender\_summary }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Group =} \StringTok{"Gender"}\NormalTok{, }\AttributeTok{Subgroup =}\NormalTok{ gender\_label) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Group, Subgroup) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avg\_subsidy =} \FunctionTok{mean}\NormalTok{(income\_diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+
+\CommentTok{\# Smoking Status Means}
+\NormalTok{smoking\_summary }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(smoking\_label)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Group =} \StringTok{"Smoking Status"}\NormalTok{, }\AttributeTok{Subgroup =}\NormalTok{ smoking\_label) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Group, Subgroup) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avg\_subsidy =} \FunctionTok{mean}\NormalTok{(income\_diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+
+\CommentTok{\# Education Means}
+\NormalTok{education\_summary }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(education\_label)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Group =} \StringTok{"Education Level"}\NormalTok{, }\AttributeTok{Subgroup =}\NormalTok{ education\_label) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Group, Subgroup) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avg\_subsidy =} \FunctionTok{mean}\NormalTok{(income\_diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+
+\CommentTok{\# Area Means}
+\NormalTok{area\_summary }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(area\_label)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Group =} \StringTok{"Area Type"}\NormalTok{, }\AttributeTok{Subgroup =}\NormalTok{ area\_label) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Group, Subgroup) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avg\_subsidy =} \FunctionTok{mean}\NormalTok{(income\_diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+
+\CommentTok{\# Self{-}rated Health Means}
+\NormalTok{health\_summary }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(health\_label)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Group =} \StringTok{"Self{-}Rated Health"}\NormalTok{, }\AttributeTok{Subgroup =}\NormalTok{ health\_label) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Group, Subgroup) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avg\_subsidy =} \FunctionTok{mean}\NormalTok{(income\_diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+
+\CommentTok{\# Lives together with a Partner Means}
+\NormalTok{partner\_summary }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Group =} \StringTok{"Living with Partner"}\NormalTok{, }\AttributeTok{Subgroup =}\NormalTok{ partner\_label) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Group, Subgroup) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avg\_subsidy =} \FunctionTok{mean}\NormalTok{(income\_diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+
+\CommentTok{\# Receives External Help Means}
+\NormalTok{external\_help\_summary }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(sp002\_mod }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{external\_help\_label =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      sp002\_mod }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\textasciitilde{}} \StringTok{"External Help"}\NormalTok{,}
+\NormalTok{      sp002\_mod }\SpecialCharTok{==} \DecValTok{5} \SpecialCharTok{\textasciitilde{}} \StringTok{"No Help"}
+\NormalTok{    ),}
+    \AttributeTok{Group =} \StringTok{"External Help"}\NormalTok{,}
+    \AttributeTok{Subgroup =}\NormalTok{ external\_help\_label}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Group, Subgroup) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avg\_subsidy =} \FunctionTok{mean}\NormalTok{(income\_diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+
+\CommentTok{\# Income Percentiles Means}
+\NormalTok{ordered\_levels }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"All"}\NormalTok{,}
+                    \StringTok{"1. Percentile"}\NormalTok{, }\StringTok{"2. Percentile"}\NormalTok{, }\StringTok{"3. Percentile"}\NormalTok{, }\StringTok{"4. Percentile"}\NormalTok{, }\StringTok{"5. Percentile"}\NormalTok{,}
+                    \StringTok{"6. Percentile"}\NormalTok{, }\StringTok{"7. Percentile"}\NormalTok{, }\StringTok{"8. Percentile"}\NormalTok{, }\StringTok{"9. Percentile"}\NormalTok{, }\StringTok{"10. Percentile"}\NormalTok{)}
+
+\NormalTok{income\_summary }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Group =} \StringTok{"Income Percentile"}\NormalTok{, }\AttributeTok{Subgroup =}\NormalTok{ income\_percentile\_label) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Group, Subgroup) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avg\_subsidy =} \FunctionTok{mean}\NormalTok{(income\_diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Subgroup =} \FunctionTok{factor}\NormalTok{(Subgroup, }\AttributeTok{levels =}\NormalTok{ ordered\_levels))}
+
+\CommentTok{\# Age Group U50, 50–59, 60–69, 70–79, 80–89 Means}
+\NormalTok{age\_summary }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(age\_group\_label)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Group =} \StringTok{"Age Group"}\NormalTok{, }\AttributeTok{Subgroup =}\NormalTok{ age\_group\_label) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Group, Subgroup) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{avg\_subsidy =} \FunctionTok{mean}\NormalTok{(income\_diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{), }\AttributeTok{.groups =} \StringTok{"drop"}\NormalTok{)}
+
+\NormalTok{combined\_summary }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(mean\_overall, gender\_summary, smoking\_summary, education\_summary, area\_summary, health\_summary, income\_summary, age\_summary, partner\_summary, external\_help\_summary)}
+
+\CommentTok{\# View table}
+\NormalTok{combined\_summary}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 44 x 3
+   Group           Subgroup        avg_subsidy
+   <chr>           <chr>                 <dbl>
+ 1 Overall         Sample                 52.1
+ 2 Gender          Female                 53.3
+ 3 Gender          Male                   50.5
+ 4 Smoking Status  Non-Smoker             51.9
+ 5 Smoking Status  Other                  55.4
+ 6 Smoking Status  Smoker                 51.0
+ 7 Education Level Lower secondary        53.6
+ 8 Education Level No education           66.2
+ 9 Education Level Post-secondary         49.8
+10 Education Level Primary                57.7
+# i 34 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{overall\_avg }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(swiss\_data\_subsidy}\SpecialCharTok{$}\NormalTok{income\_diff, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{overall\_reference }\OtherTok{\textless{}{-}}\NormalTok{ combined\_summary }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{distinct}\NormalTok{(Group) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Subgroup =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{avg\_subsidy =}\NormalTok{ overall\_avg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{final\_data }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(combined\_summary, overall\_reference) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Type =} \FunctionTok{case\_when}\NormalTok{(}
+\NormalTok{      Group }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Gender"}\NormalTok{, }\StringTok{"Living with Partner"}\NormalTok{, }\StringTok{"Smoking Status"}\NormalTok{, }\StringTok{"External Help"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Binary"}\NormalTok{,}
+\NormalTok{      Group }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Age Group"}\NormalTok{, }\StringTok{"Income Percentile"}\NormalTok{, }\StringTok{"Education Level"}\NormalTok{, }\StringTok{"Area Type"}\NormalTok{, }\StringTok{"Self{-}Rated Health"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Multi"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}} \StringTok{"Other"}
+\NormalTok{    )}
+\NormalTok{  )}
+\CommentTok{\# Remove "Other"/"Unknown"}
+\NormalTok{final\_data }\OtherTok{\textless{}{-}}\NormalTok{ final\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{Subgroup }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Other"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{))}
+
+\CommentTok{\# Dynamic label position for binary}
+\NormalTok{binary\_data }\OtherTok{\textless{}{-}}\NormalTok{ final\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Type }\SpecialCharTok{==} \StringTok{"Binary"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Subgroup =} \FunctionTok{as.character}\NormalTok{(Subgroup),}
+    \AttributeTok{Subgroup =} \FunctionTok{factor}\NormalTok{(Subgroup, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Sample"}\NormalTok{, }\FunctionTok{sort}\NormalTok{(}\FunctionTok{unique}\NormalTok{(Subgroup[Subgroup }\SpecialCharTok{!=} \StringTok{"Sample"}\NormalTok{])))),}
+    \AttributeTok{Group =} \FunctionTok{factor}\NormalTok{(Group),}
+    \AttributeTok{label\_vjust =} \FunctionTok{ifelse}\NormalTok{(avg\_subsidy }\SpecialCharTok{\textgreater{}} \DecValTok{10}\NormalTok{, }\SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{, }\FloatTok{1.5}\NormalTok{),}
+\NormalTok{    )}
+
+\CommentTok{\# Ordering Binary Plots}
+\NormalTok{binary\_demographics }\OtherTok{\textless{}{-}}\NormalTok{ binary\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Group }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Gender"}\NormalTok{, }\StringTok{"Smoking Status"}\NormalTok{))}
+
+\NormalTok{binary\_support }\OtherTok{\textless{}{-}}\NormalTok{ binary\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Group }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Living with Partner"}\NormalTok{, }\StringTok{"External Help"}\NormalTok{))}
+
+\CommentTok{\# Dynamic label position for multi}
+\NormalTok{multi\_data }\OtherTok{\textless{}{-}}\NormalTok{ final\_data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Type }\SpecialCharTok{==} \StringTok{"Multi"}\NormalTok{, Group }\SpecialCharTok{!=} \StringTok{"Income Percentile"}\NormalTok{, }\SpecialCharTok{!}\NormalTok{Subgroup }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Other"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(Group) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(Group, }\FunctionTok{desc}\NormalTok{(avg\_subsidy)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Subgroup =} \FunctionTok{factor}\NormalTok{(Subgroup, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Sample"}\NormalTok{, }\FunctionTok{setdiff}\NormalTok{(Subgroup, }\StringTok{"Sample"}\NormalTok{))),}
+    \AttributeTok{label\_vjust =} \FunctionTok{ifelse}\NormalTok{(avg\_subsidy }\SpecialCharTok{\textgreater{}} \DecValTok{10}\NormalTok{, }\SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{, }\FloatTok{1.5}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{()}
+
+\CommentTok{\# Income Percentile Bar Graph Ordering}
+\NormalTok{income\_summary }\OtherTok{\textless{}{-}}\NormalTok{ income\_summary }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Subgroup =} \FunctionTok{factor}\NormalTok{(Subgroup, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}
+      \StringTok{"Sample"}\NormalTok{,}
+      \StringTok{"1. Percentile"}\NormalTok{, }\StringTok{"2. Percentile"}\NormalTok{, }\StringTok{"3. Percentile"}\NormalTok{, }\StringTok{"4. Percentile"}\NormalTok{, }\StringTok{"5. Percentile"}\NormalTok{,}
+      \StringTok{"6. Percentile"}\NormalTok{, }\StringTok{"7. Percentile"}\NormalTok{, }\StringTok{"8. Percentile"}\NormalTok{, }\StringTok{"9. Percentile"}\NormalTok{, }\StringTok{"10. Percentile"}
+\NormalTok{    )),}
+    \AttributeTok{label\_vjust =} \FunctionTok{ifelse}\NormalTok{(avg\_subsidy }\SpecialCharTok{\textgreater{}} \DecValTok{10}\NormalTok{, }\SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{, }\FloatTok{1.5}\NormalTok{)}
+\NormalTok{  )}
+
+\CommentTok{\# Blue customised color palette}
+\NormalTok{blue\_palette }\OtherTok{\textless{}{-}} \FunctionTok{colorRampPalette}\NormalTok{(}\FunctionTok{brewer.pal}\NormalTok{(}\DecValTok{9}\NormalTok{, }\StringTok{"Blues"}\NormalTok{))}
+\NormalTok{n\_colors\_binary }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(binary\_data}\SpecialCharTok{$}\NormalTok{Subgroup))}
+\NormalTok{n\_colors\_multi }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(multi\_data}\SpecialCharTok{$}\NormalTok{Subgroup))}
+\NormalTok{n\_colors\_income }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(income\_summary}\SpecialCharTok{$}\NormalTok{Subgroup))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Binary Plot 1 {-} Gender and Smoking}
+\FunctionTok{ggplot}\NormalTok{(binary\_demographics, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Subgroup, }\AttributeTok{y =}\NormalTok{ avg\_subsidy, }\AttributeTok{fill =}\NormalTok{ Subgroup)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{round}\NormalTok{(avg\_subsidy, }\DecValTok{1}\NormalTok{), }\AttributeTok{vjust =}\NormalTok{ label\_vjust),}
+            \AttributeTok{fontface =} \StringTok{"bold"}\NormalTok{, }\AttributeTok{size =} \DecValTok{4}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Group, }\AttributeTok{scales =} \StringTok{"free\_x"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{comma\_format}\NormalTok{(}\AttributeTok{accuracy =} \DecValTok{1}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{60}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{blue\_palette}\NormalTok{(}\FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(binary\_demographics}\SpecialCharTok{$}\NormalTok{Subgroup)))) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Doctoral Visit Subsidy – Binary Variable Plot"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"Gender and Smoking Status Comparison"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \StringTok{"Average Subsidy (EUR)"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{14}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{strip.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{14}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{16}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+    \AttributeTok{legend.position =} \StringTok{"none"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{SHARE---Switzerland_files/figure-pdf/4.a.5.1 - Binary Variable Plots-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Binary Plot 2 {-} External Help and Living with Partner}
+\FunctionTok{ggplot}\NormalTok{(binary\_support, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Subgroup, }\AttributeTok{y =}\NormalTok{ avg\_subsidy, }\AttributeTok{fill =}\NormalTok{ Subgroup)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{round}\NormalTok{(avg\_subsidy, }\DecValTok{1}\NormalTok{), }\AttributeTok{vjust =}\NormalTok{ label\_vjust),}
+            \AttributeTok{fontface =} \StringTok{"bold"}\NormalTok{, }\AttributeTok{size =} \DecValTok{4}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Group, }\AttributeTok{scales =} \StringTok{"free\_x"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{comma\_format}\NormalTok{(}\AttributeTok{accuracy =} \DecValTok{1}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{80}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{blue\_palette}\NormalTok{(}\FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(binary\_support}\SpecialCharTok{$}\NormalTok{Subgroup)))) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Doctoral Visit Subsidy – Binary Variable Plot"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"Living with a Partner and External Help Comparison"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \StringTok{"Average Subsidy (EUR)"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{14}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{strip.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{14}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{16}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+    \AttributeTok{legend.position =} \StringTok{"none"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{SHARE---Switzerland_files/figure-pdf/4.a.5.1 - Binary Variable Plots-2.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Multi{-}category Plot}
+\FunctionTok{ggplot}\NormalTok{(multi\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Subgroup, }\AttributeTok{y =}\NormalTok{ avg\_subsidy, }\AttributeTok{fill =}\NormalTok{ Subgroup)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}
+      \AttributeTok{label =} \FunctionTok{round}\NormalTok{(avg\_subsidy, }\DecValTok{1}\NormalTok{),}
+      \AttributeTok{vjust =} \FunctionTok{ifelse}\NormalTok{(Subgroup }\SpecialCharTok{==} \StringTok{"Poor"}\NormalTok{, }\FloatTok{1.8}\NormalTok{, label\_vjust),}
+      \AttributeTok{color =} \FunctionTok{ifelse}\NormalTok{(Subgroup }\SpecialCharTok{==} \StringTok{"Poor"}\NormalTok{, }\StringTok{"white"}\NormalTok{, }\StringTok{"black"}\NormalTok{)}
+\NormalTok{    ),}
+    \AttributeTok{fontface =} \StringTok{"bold"}\NormalTok{, }\AttributeTok{size =} \DecValTok{4}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Group, }\AttributeTok{scales =} \StringTok{"free\_x"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{comma\_format}\NormalTok{(}\AttributeTok{accuracy =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{blue\_palette}\NormalTok{(n\_colors\_multi)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_identity}\NormalTok{() }\SpecialCharTok{+}  \CommentTok{\# \textless{}{-}{-}{-} needed for custom label color}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Doctoral Visit Subsidy – Multicategorial Variable Plots"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"Reference \textquotesingle{}All\textquotesingle{} shown first, categories sorted by average subsidy"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \StringTok{"Average Subsidy (EUR)"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{14}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{strip.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{14}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{16}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+    \AttributeTok{legend.position =} \StringTok{"none"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{SHARE---Switzerland_files/figure-pdf/4.a.5.2 - Multicategorial Variable Plots-1.pdf}
+
+}
+
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Income Percentile Plot}
+\FunctionTok{ggplot}\NormalTok{(income\_summary, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Subgroup, }\AttributeTok{y =}\NormalTok{ avg\_subsidy, }\AttributeTok{fill =}\NormalTok{ Subgroup)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{width =} \FloatTok{0.7}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{label =} \FunctionTok{round}\NormalTok{(avg\_subsidy, }\DecValTok{1}\NormalTok{), }\AttributeTok{vjust =}\NormalTok{ label\_vjust),}
+    \AttributeTok{size =} \DecValTok{4}\NormalTok{, }\AttributeTok{fontface =} \StringTok{"bold"}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{blue\_palette}\NormalTok{(n\_colors\_income)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{comma\_format}\NormalTok{(}\AttributeTok{accuracy =} \DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Doctoral Visit Subsidy {-} Income Percentiles"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"Ordered from lowest income (1st Percentile) to highest income (10th Percentile)"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \StringTok{"Average Subsidy (EUR)"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{14}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{45}\NormalTok{, }\AttributeTok{hjust =} \DecValTok{1}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{axis.text.y =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{16}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{plot.subtitle =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{),}
+    \AttributeTok{legend.position =} \StringTok{"none"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{SHARE---Switzerland_files/figure-pdf/4.a.5.3 - Income Percentile Plot-1.pdf}
+
+}
+
+\end{figure}
+
+\hypertarget{task-b}{%
+\subsubsection{Task b)}\label{task-b}}
+
+How does the subsidy affect poverty? Provide a quantitative measure and
+justify your answer.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Poverty line according to EUROSTAT (2023)}
+\NormalTok{poverty\_line }\OtherTok{\textless{}{-}} \FunctionTok{median}\NormalTok{(swiss\_data\_subsidy}\SpecialCharTok{$}\NormalTok{thinc\_m, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{*} \FloatTok{0.6}
+
+\FunctionTok{print}\NormalTok{(poverty\_line)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 27976.95
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Setting individuals who have been considered poor before and after subsidy}
+\NormalTok{swiss\_data\_subsidy }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{poor\_before =} \FunctionTok{ifelse}\NormalTok{(thinc\_m }\SpecialCharTok{\textless{}}\NormalTok{ poverty\_line, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{),}
+    \AttributeTok{poor\_after  =} \FunctionTok{ifelse}\NormalTok{(adjusted\_income }\SpecialCharTok{\textless{}}\NormalTok{ poverty\_line, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{  )}
+
+\CommentTok{\# Computation of poverty rates}
+\NormalTok{poverty\_stats }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{poverty\_rate\_before =} \FunctionTok{mean}\NormalTok{(poor\_before, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{poverty\_rate\_after =} \FunctionTok{mean}\NormalTok{(poor\_after, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{change\_in\_poverty =}\NormalTok{ poverty\_rate\_after }\SpecialCharTok{{-}}\NormalTok{ poverty\_rate\_before}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{task-c}{%
+\subsubsection{Task c)}\label{task-c}}
+
+Quantify the redistributive consequences of the subsidy, using two
+different inequality indicators we covered in class. Justify your choice
+of indicators and interpret your results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ineq\_data }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(thinc\_m), }\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(adjusted\_income), thinc\_m }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{, adjusted\_income }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)}
+
+\NormalTok{epsilon }\OtherTok{\textless{}{-}} \DecValTok{1}  
+
+\CommentTok{\# Atkinson{-}Index Pre{-}After Values}
+\NormalTok{atkinson\_before }\OtherTok{\textless{}{-}} \FunctionTok{Atkinson}\NormalTok{(ineq\_data}\SpecialCharTok{$}\NormalTok{thinc\_m, }\AttributeTok{parameter =}\NormalTok{ epsilon)}
+\NormalTok{atkinson\_after }\OtherTok{\textless{}{-}} \FunctionTok{Atkinson}\NormalTok{(ineq\_data}\SpecialCharTok{$}\NormalTok{adjusted\_income, }\AttributeTok{parameter =}\NormalTok{ epsilon)}
+
+\NormalTok{atkinson\_change }\OtherTok{\textless{}{-}}\NormalTok{ atkinson\_after }\SpecialCharTok{{-}}\NormalTok{ atkinson\_before}
+
+\FunctionTok{tibble}\NormalTok{(}
+  \StringTok{\textasciigrave{}}\AttributeTok{Atkinson Before Subsidy}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ atkinson\_before,}
+  \StringTok{\textasciigrave{}}\AttributeTok{Atkinson After Subsidy}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ atkinson\_after,}
+  \StringTok{\textasciigrave{}}\AttributeTok{Change in Atkinson}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ atkinson\_change}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 3
+  `Atkinson Before Subsidy` `Atkinson After Subsidy` `Change in Atkinson`
+                      <dbl>                    <dbl>                <dbl>
+1                     0.282                    0.279             -0.00286
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ineq\_data }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(thinc\_m), }\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(adjusted\_income), thinc\_m }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{, adjusted\_income }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)}
+
+\CommentTok{\# Theil{-}T (GE(1)) }
+\NormalTok{theil\_t\_before }\OtherTok{\textless{}{-}} \FunctionTok{Theil}\NormalTok{(ineq\_data}\SpecialCharTok{$}\NormalTok{thinc\_m, }\AttributeTok{parameter =} \DecValTok{1}\NormalTok{)}
+\NormalTok{theil\_t\_after  }\OtherTok{\textless{}{-}} \FunctionTok{Theil}\NormalTok{(ineq\_data}\SpecialCharTok{$}\NormalTok{adjusted\_income, }\AttributeTok{parameter =} \DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# Theil{-}L (GE(0)) }
+\NormalTok{theil\_l\_before }\OtherTok{\textless{}{-}} \FunctionTok{Theil}\NormalTok{(ineq\_data}\SpecialCharTok{$}\NormalTok{thinc\_m, }\AttributeTok{parameter =} \DecValTok{0}\NormalTok{)}
+\NormalTok{theil\_l\_after  }\OtherTok{\textless{}{-}} \FunctionTok{Theil}\NormalTok{(ineq\_data}\SpecialCharTok{$}\NormalTok{adjusted\_income, }\AttributeTok{parameter =} \DecValTok{0}\NormalTok{)}
+
+\FunctionTok{tibble}\NormalTok{(}
+  \StringTok{\textasciigrave{}}\AttributeTok{Theil{-}T Before}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ theil\_t\_before,}
+  \StringTok{\textasciigrave{}}\AttributeTok{Theil{-}T After}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ theil\_t\_after,}
+  \StringTok{\textasciigrave{}}\AttributeTok{Change T}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ theil\_t\_after }\SpecialCharTok{{-}}\NormalTok{ theil\_t\_before,}
+  \StringTok{\textasciigrave{}}\AttributeTok{Theil{-}L Before}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ theil\_l\_before,}
+  \StringTok{\textasciigrave{}}\AttributeTok{Theil{-}L After}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ theil\_l\_after,}
+  \StringTok{\textasciigrave{}}\AttributeTok{Change L}\StringTok{\textasciigrave{}} \OtherTok{=}\NormalTok{ theil\_l\_after }\SpecialCharTok{{-}}\NormalTok{ theil\_l\_before}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 6
+  `Theil-T Before` `Theil-T After` `Change T` `Theil-L Before` `Theil-L After`
+             <dbl>           <dbl>      <dbl>            <dbl>           <dbl>
+1            0.332           0.328   -0.00398            0.283           0.283
+# i 1 more variable: `Change L` <dbl>
+\end{verbatim}
+
+\hypertarget{task-5}{%
+\subsection{Task 5}\label{task-5}}
+
+\hypertarget{a}{%
+\subsubsection{a)}\label{a}}
+
+Propose a method to take these behavioral responses into account and
+simulate the impact of the subsidy on the number of visits to the
+doctor. Justify your methodology with 2-3 references from economic
+journals.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Constants}
+\NormalTok{price\_before }\OtherTok{\textless{}{-}} \DecValTok{30}
+\NormalTok{price\_after }\OtherTok{\textless{}{-}} \DecValTok{20}
+\NormalTok{elasticity }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\FloatTok{0.2}
+
+\CommentTok{\# Arc elasticity factor}
+\NormalTok{delta\_visits\_factor }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{+}\NormalTok{ elasticity }\SpecialCharTok{*}\NormalTok{ ((price\_after }\SpecialCharTok{{-}}\NormalTok{ price\_before) }\SpecialCharTok{/}\NormalTok{ ((price\_after }\SpecialCharTok{+}\NormalTok{ price\_before) }\SpecialCharTok{/} \DecValTok{2}\NormalTok{))}
+
+\CommentTok{\# Apply elasticity + individualized income approach}
+\NormalTok{swiss\_data\_elastic }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_subsidy }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{visits\_adjusted =}\NormalTok{ hc002\_mod }\SpecialCharTok{*}\NormalTok{ delta\_visits\_factor,}
+    \AttributeTok{subsidy\_behavior =}\NormalTok{ visits\_adjusted }\SpecialCharTok{*} \DecValTok{10}\NormalTok{,}
+    \AttributeTok{adjusted\_income\_behavior =}\NormalTok{ (thinc\_m }\SpecialCharTok{+}\NormalTok{ subsidy\_behavior) }\SpecialCharTok{/}\NormalTok{ hhsize.y,}
+    \AttributeTok{baseline\_income\_indiv =}\NormalTok{ thinc\_m }\SpecialCharTok{/}\NormalTok{ hhsize.y}
+\NormalTok{  )}
+
+\CommentTok{\# Final Change in Doctoral Visits due to Behavioral Change}
+\NormalTok{visits\_impact }\OtherTok{\textless{}{-}}\NormalTok{ swiss\_data\_elastic }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{avg\_visits\_before =} \FunctionTok{mean}\NormalTok{(hc002\_mod, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{avg\_visits\_after =} \FunctionTok{mean}\NormalTok{(visits\_adjusted, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{change\_visits =}\NormalTok{ avg\_visits\_after }\SpecialCharTok{{-}}\NormalTok{ avg\_visits\_before,}
+    \AttributeTok{percent\_increase =} \DecValTok{100} \SpecialCharTok{*}\NormalTok{ (change\_visits }\SpecialCharTok{/}\NormalTok{ avg\_visits\_before),}
+
+    \AttributeTok{avg\_income\_before =} \FunctionTok{mean}\NormalTok{(baseline\_income\_indiv, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{avg\_income\_after =} \FunctionTok{mean}\NormalTok{(adjusted\_income\_behavior, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{income\_gain =}\NormalTok{ avg\_income\_after }\SpecialCharTok{{-}}\NormalTok{ avg\_income\_before,}
+    \AttributeTok{percent\_income\_gain =} \DecValTok{100} \SpecialCharTok{*}\NormalTok{ (income\_gain }\SpecialCharTok{/}\NormalTok{ avg\_income\_before)}
+\NormalTok{  )}
+
+\FunctionTok{print}\NormalTok{(visits\_impact)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  avg_visits_before avg_visits_after change_visits percent_increase
+1          5.203115         5.619364     0.4162492                8
+  avg_income_before avg_income_after income_gain percent_income_gain
+1          41226.16         41267.57    41.40572           0.1004356
+\end{verbatim}
+
+
+
+\end{document}

@@ -1,0 +1,806 @@
+---
+title: "SHARE - Switzerland"
+author: "Maximilian STEIN"
+format: 
+  html:  default
+  docx:  default
+  pdf:   default
+---
+
+This Quarto documentation contains all code used for data processing and visualizations included in the final report. Additional comments have been added to enhance code clarity and provide justifications where necessary, unless already addressed in the main report or vice versa. The complete report can be found in the folder titled ‘SHARE-Switzerland’.
+
+# Set-Up
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(here)
+library(ggplot2)
+library(tibble)
+library(estimatr)
+library(scales)
+library(RColorBrewer)
+library(DescTools)
+library(ineq)
+```
+
+```{r, include=FALSE}
+here("SHARE-Switzerland")
+load("easySHARE_rel9_0_0.rda")
+```
+
+```{r Set-Up and Overall Manipulation}
+swiss_data_full <- easySHARE_rel9_0_0 %>%
+  filter(country_mod == 756) %>%
+  mutate(
+    employment_status = factor(ep005_,
+                                levels = c(1, 2, 3, 4, 5, 97),
+                                labels = c("Retired", "Employed", "Unemployed",
+                                           "Disabled", "Homemaker", "Other")),
+    health_rating = factor(sphus, levels = 1:5,
+                           labels = c("Excellent", "Very Good", "Good", "Fair", "Poor")),
+    Smoking_status = factor(smoking, 
+                     levels = c (-15, - 13, - 10, 1, 5),
+                     labels = c("Na", "Na", "Na","No", "Yes")),
+    education_level = factor(isced1997_r,
+      levels = 0:6,
+      labels = c(
+        "No education", "Primary", "Lower secondary", "Upper secondary",
+        "Post-secondary", "Tertiary I", "Tertiary II")),
+    area_type = factor(iv009_mod,
+      levels = 1:5,
+      labels = c("Big City", "Suburbs", "Large Town", "Small Town", "Rural Area")),
+    gender = factor(female, levels = c(0, 1), labels = c("Male", "Female"))
+  )
+```
+
+## Task 1 
+
+Briefly describe the dataset for your country of choice, the sampling design and representativeness. Provide descriptive statistics of the main variables of interest (household income, gender, age, employment,...) and number of observations. (1 pt)
+
+```{r Task 1.1 - Set-Up and Choice of Descriptive Variables}
+
+# Variable Selection for Descriptives
+swiss_data_descriptives <- easySHARE_rel9_0_0 %>%
+  filter(country_mod == 756) %>%
+  select(mergeid, wave, female, age, ep005_, thinc_m,
+         eduyears_mod, sphus, hhsize, hc002_mod)
+```
+
+```{r Task 1.2 Descriptives per Wave - Continuous and Binary Variables}
+# Clean dataset with wave info
+swiss_data_full <- swiss_data_full %>%
+  filter(!is.na(wave)) %>%
+  mutate(
+    female = as.numeric(female)
+  )
+
+# Function to compute stats per variable per wave, keeping all 9 waves
+wave_stats <- function(data, variable_name) {
+  data %>%
+    group_by(wave) %>%
+    summarise(
+      Variable = variable_name,
+      Obs = sum(!is.na(.data[[variable_name]])),
+      Mean = round(mean(.data[[variable_name]], na.rm = TRUE), 2),
+      `Std. Dev.` = round(sd(.data[[variable_name]], na.rm = TRUE), 2),
+      Min = round(min(.data[[variable_name]], na.rm = TRUE), 2),
+      Max = round(max(.data[[variable_name]], na.rm = TRUE), 2),
+      .groups = "drop"
+    ) %>%
+    tidyr::complete(wave = 1:9,
+                    fill = list(Obs = 0, Mean = NA, `Std. Dev.` = NA, Min = NA, Max = NA))
+}
+
+# Compute for all variables
+age_stats <- wave_stats(swiss_data_full %>% filter(age > 0, age != -15), "age")
+income_stats <- wave_stats(swiss_data_full %>% filter(thinc_m > 0), "thinc_m")
+edu_stats <- wave_stats(swiss_data_full %>% filter(eduyears_mod >= 0), "eduyears_mod")
+hhsize_stats <- wave_stats(swiss_data_full %>% filter(hhsize > 0), "hhsize")
+female_stats <- wave_stats(swiss_data_full, "female")
+doctorv_stats <- wave_stats(swiss_data_full %>% filter(hc002_mod >= 0), "hc002_mod")
+
+# Combine into one table
+all_stats <- bind_rows(
+  age_stats, female_stats, income_stats, edu_stats, hhsize_stats, doctorv_stats
+) %>%
+  arrange(wave, Variable)
+
+# Print the table
+cat("Descriptive Statistics by Wave – Switzerland Sample\n")
+print(all_stats, n = Inf)
+```
+
+```{r Task 1.2 Descriptives per Wave - Unordered Categorical Variables}
+health_descriptives <- swiss_data_full %>%
+  filter(!is.na(health_rating)) %>%
+  group_by(wave, health_rating) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  tidyr::complete(wave = 1:9, health_rating, fill = list(count = 0)) %>%
+  group_by(wave) %>%
+  mutate(percent = round(count / sum(count) * 100, 1)) %>%
+  select(wave, health_rating, percent) %>%
+  tidyr::pivot_wider(
+    names_from = health_rating,
+    values_from = percent,
+    values_fill = 0
+  ) %>%
+  arrange(wave)
+
+cat("Self-Rated Health by Wave (in %)\n")
+print(health_descriptives, n = Inf)
+
+employment_descriptives <- swiss_data_full %>%
+  filter(!is.na(employment_status)) %>%
+  group_by(wave, employment_status) %>%
+  summarise(count = n(), .groups = "drop") %>%
+  tidyr::complete(wave = 1:9, employment_status, fill = list(count = 0)) %>%
+  group_by(wave) %>%
+  mutate(percent = round(count / sum(count) * 100, 1)) %>%
+  select(wave, employment_status, percent) %>%
+  tidyr::pivot_wider(
+    names_from = employment_status,
+    values_from = percent,
+    values_fill = 0
+  ) %>%
+  arrange(wave)
+
+cat("Employment Status by Wave (in %)\n")
+print(employment_descriptives, n = Inf)
+```
+
+## Task 2 
+
+Graph the average household income in your country of reference for a wave of your choice. Choose 2 other countries in the database and report the average income in each of the two countries for the same wave. Can you rank the three countries in terms of income level? Discuss the statistical significance of the ranking.
+
+```{r Task 2.1 - Response Numbers along Waves for Italy and France}
+
+# Count valid income responses per wave for France and Germany
+income_counts_fr_it <- easySHARE_rel9_0_0 %>%
+  filter(
+    country_mod %in% c(250, 380),     # 250 = France, 276 = Germany
+    thinc_m > 0,
+    !is.na(wave)
+  ) %>%
+  mutate(
+    country_label = case_when(
+      country_mod == 250 ~ "France",
+      country_mod == 380 ~ "Italy"
+    )
+  ) %>%
+  group_by(wave, country_label) %>%
+  summarise(Income_Respondents = n(), .groups = "drop") %>%
+  tidyr::pivot_wider(
+    names_from = country_label,
+    values_from = Income_Respondents,
+    values_fill = 0
+  ) %>%
+  arrange(wave)
+
+# Display result
+print(income_counts_fr_it)
+
+```
+
+```{r Task 2.1 - Comparative Income Analysis between Switzerland, France and Italy}
+
+# Filtering for Wave 4 and Corresponding Countries
+wave4_income_swifraita <- easySHARE_rel9_0_0 %>%
+  filter(wave == 4,
+         country_mod %in% c(756, 250, 380),
+         thinc_m > 0) %>%
+  mutate(
+    country_label = case_when(
+      country_mod == 756 ~ "Switzerland",
+      country_mod == 250 ~ "France",
+      country_mod == 380 ~ "Italy"
+    )
+  )
+
+# Summary Statistic of Second Order Moments and CI
+tri_income_summary <- wave4_income_swifraita %>%
+  group_by(country_label) %>%
+  summarise(
+    Obs = n(),
+    Mean = round(mean(thinc_m, na.rm = TRUE), 2),
+    SD = round(sd(thinc_m, na.rm = TRUE), 2),
+    SE = SD / sqrt(Obs),
+    CI_lower = round(Mean - 1.96 * SE, 2),
+    CI_upper = round(Mean + 1.96 * SE, 2),
+    .groups = "drop"
+  )
+
+# Print the updated table
+print(tri_income_summary)
+
+# Graph Plotting
+ggplot(tri_income_summary, aes(x = reorder(country_label, -Mean), y = Mean, fill = country_label)) +
+  geom_col(width = 0.6, color = "gray30", show.legend = FALSE) +
+  geom_errorbar(aes(
+    ymin = Mean - 1.96 * SD / sqrt(Obs),
+    ymax = Mean + 1.96 * SD / sqrt(Obs)
+  ), width = 0.2, color = "gray30") +
+  scale_fill_manual(values = c(
+    "Switzerland" = "#1f3b57",
+    "France" = "#3f6aa5",
+    "Italy" = "#7baad3"
+  )) +
+  scale_y_continuous(labels = scales::comma_format()) +
+  labs(
+    title = "How Average Household Incomes Stack Up in Europe",
+    subtitle = "Wave 4 – Mean Income in EUR with 95% Confidence Intervals",
+    x = NULL,
+    y = "Household Income (EUR)"
+  ) +
+  theme_minimal(base_family = "Helvetica") +
+  theme(
+    plot.title = element_text(size = 14, face = "bold", color = "#3b3b3b"),
+    plot.subtitle = element_text(size = 11, margin = margin(b = 10)),
+    axis.text.x = element_text(size = 10, face = "bold"),
+    axis.text.y = element_text(size = 9, color = "gray20"),
+    axis.title.y = element_text(size = 10, face = "italic", color = "gray30"),
+    panel.grid.major.y = element_line(color = "gray85", size = 0.3),
+    panel.grid.minor = element_blank()
+  )
+
+ggsave("SWIFRAITA_income_comparison.png", width = 7, height = 5, dpi = 300)
+```
+
+## Task 3 
+
+Now you will focus on your country of reference. The variable hc002_mod measures the frequency of visits to the doctor. Propose an econometric analysis using OLS to explain the determinants of the frequency of visits and discuss your results.
+
+
+```{r Task 3.1 - Select Full Swiss Data Set}
+swiss_data_full <- easySHARE_rel9_0_0 %>%
+  filter(country_mod == 756) %>%
+  mutate(
+    employment_status = factor(ep005_,
+                                levels = c(1, 2, 3, 4, 5, 97),
+                                labels = c("Retired", "Employed", "Unemployed",
+                                           "Disabled", "Homemaker", "Other")),
+    health_rating = factor(sphus, levels = 1:5,
+                           labels = c("Excellent", "Very Good", "Good", "Fair", "Poor")),
+    area = factor(iv009_mod, levels = c(1:5),
+                             labels = c("A big city", "The suburbs or outskirts of a big city", "A large town", "A small town", "A rural area or village"))
+  )
+```
+
+```{r Task 3.2 - OLS Regression on Doctor Visits Per Household}
+swiss_data_model <- easySHARE_rel9_0_0 %>%
+  filter(country_mod == 756, !is.na(hc002_mod)) %>%
+  mutate(
+    female = as.numeric(female),
+    retired = ifelse(ep005_ == 1, 1, 0),
+    disabled = ifelse(ep005_ == 4, 1, 0),
+    homemaker = ifelse(ep005_ == 5, 1, 0)
+  ) %>%
+  select(hc002_mod, female, age, thinc_m, eduyears_mod,
+         chronic_mod, iadla, retired, disabled, homemaker) %>%
+  na.omit()
+
+# Baseline Income OLS-Model
+baseline_ols <- lm(hc002_mod ~ female + age + thinc_m + eduyears_mod + 
+                  chronic_mod + iadla + retired + disabled,
+                data = swiss_data_model)
+
+summary(baseline_ols)
+
+# Logged Income OLS-Model
+logged_income_ols <- lm(hc002_mod ~ female + age + log(thinc_m + 1) + eduyears_mod +
+                        chronic_mod + iadla + retired + disabled,
+                        data = swiss_data_model)
+
+summary(logged_income_ols)
+
+aic_raw <- AIC(baseline_ols)
+bic_raw <- BIC(baseline_ols)
+
+aic_log <- AIC(logged_income_ols)
+bic_log <- BIC(logged_income_ols)
+
+cat("AIC comparison:\n")
+cat("Raw income model: ", aic_raw, "\n")
+cat("Log income model: ", aic_log, "\n\n")
+
+cat("BIC comparison:\n")
+cat("Raw income model: ", bic_raw, "\n")
+cat("Log income model: ", bic_log, "\n")
+```
+
+## Exercise 4
+
+We now introduce a 10€ subsidy given to patients for each visit to the doctor. We want to analyze the consequences of introducing such a subsidy on inequality and poverty. For now, we assume no behavioral response (i.e. no change in the number of visits to the doctor)
+
+### Task a)
+
+How does the subsidy affect income for each individual? Describe the average change in income for the whole population, and for subgroups of the population defined according to characteristics you find relevant.
+
+
+```{r Task 4.0 - Simulate Per-Capita Household Income After Subsidy}
+# Computation of Total Household Subsidy dependant on Household Size
+hh_subsidy <- easySHARE_rel9_0_0 %>%
+  filter(country_mod == 756) %>%
+  group_by(hhid, wave) %>%
+  summarise(
+    total_visits = sum(hc002_mod, na.rm = TRUE),
+    hhsize = n(),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    per_capita_subsidy = 10 * total_visits / hhsize
+  )
+  
+swiss_data_subsidy <- easySHARE_rel9_0_0 %>%
+  filter(country_mod == 756) %>%
+  left_join(hh_subsidy, by = c("hhid", "wave")) %>%
+  mutate(
+    adjusted_income = thinc_m + per_capita_subsidy,
+    income_diff = adjusted_income - thinc_m
+  )
+```
+
+```{r Task 4.0 - Verification of No Double-Counting Subsidy}
+hh_subsidy %>%
+  mutate(total_distributed = per_capita_subsidy * hhsize,
+         actual_total = 10 * total_visits) %>%
+  summarise(diff = sum(actual_total - total_distributed))
+```
+
+The difference is 0, so the subsidy splitting under assumptions and specification is perfectly consistent.
+
+
+```{r Task 4.a.1 - Population and Sub-Group Analysis Specification}
+
+swiss_data_subsidy <- swiss_data_subsidy %>%
+  filter(!is.na(thinc_m), thinc_m >= 0) %>%
+  mutate(
+    gender_label = case_when(
+      female == 1 ~ "Female",
+      female == 0 ~ "Male",
+      TRUE ~ NA_character_
+    ),
+    smoking_label = case_when(
+      smoking == 1 ~ "Smoker",
+      smoking == 5 ~ "Non-Smoker",
+      TRUE ~ "Other"
+    ),
+    education_label = case_when(
+      isced1997_r == 0 ~ "No education",
+      isced1997_r == 1 ~ "Primary",
+      isced1997_r == 2 ~ "Lower secondary",
+      isced1997_r == 3 ~ "Upper secondary",
+      isced1997_r == 4 ~ "Post-secondary",
+      isced1997_r == 5 ~ "Tertiary I",
+      isced1997_r == 6 ~ "Tertiary II",
+      TRUE ~ "Unknown"
+    ),
+    area_label = case_when(
+      iv009_mod == 1 ~ "Big City",
+      iv009_mod == 2 ~ "Suburbs",
+      iv009_mod == 3 ~ "Large Town",
+      iv009_mod == 4 ~ "Small Town",
+      iv009_mod == 5 ~ "Rural Area",
+      TRUE ~ "Other"
+    ),
+    health_label = case_when(
+      sphus == 1 ~ "Excellent",
+      sphus == 2 ~ "Very Good",
+      sphus == 3 ~ "Good",
+      sphus == 4 ~ "Fair",
+      sphus == 5 ~ "Poor",
+      TRUE ~ NA_character_
+    ),
+    income_percentile = ifelse(thinc_m >= 0, ntile(thinc_m, 10), NA_integer_),
+    income_percentile_label = case_when(
+      income_percentile == 1 ~ "1. Percentile",
+      income_percentile == 2 ~ "2. Percentile",
+      income_percentile == 3 ~ "3. Percentile",
+      income_percentile == 4 ~ "4. Percentile",
+      income_percentile == 5 ~ "5. Percentile",
+      income_percentile == 6 ~ "6. Percentile",
+      income_percentile == 7 ~ "7. Percentile",
+      income_percentile == 8 ~ "8. Percentile",
+      income_percentile == 9 ~ "9. Percentile",
+      income_percentile == 10 ~ "10. Percentile",
+      TRUE ~ NA_character_
+    ),
+    age_group_label = case_when(
+    age < 50 ~ " Under 50",
+    age >= 50 & age < 60 ~ "50–59",
+    age >= 60 & age < 70 ~ "60–69",
+    age >= 70 & age < 80 ~ "70–79",
+    age >= 80 & age < 90 ~ "80–89",
+    TRUE ~ NA_character_
+    ),
+    external_help_label = case_when(
+    sp002_mod == 1 ~ "External Help",
+    sp002_mod == 5 ~ "No External Help",
+    TRUE ~ NA_character_
+    ),
+    partner_label = case_when(
+    partnerinhh == 1 ~ "With Partner",
+    partnerinhh == 3 ~ "Without Partner",
+    TRUE ~ NA_character_
+    )
+  )
+```
+
+```{r Task 4.a.2 - Mean Caluclations}
+
+# Overall Mean
+mean_overall <- tibble(
+  Group = "Overall",
+  Subgroup = "Sample",
+  avg_subsidy = mean(swiss_data_subsidy$income_diff, na.rm = TRUE)
+)
+
+# Gender Means
+gender_summary <- swiss_data_subsidy %>%
+  mutate(Group = "Gender", Subgroup = gender_label) %>%
+  group_by(Group, Subgroup) %>%
+  summarise(avg_subsidy = mean(income_diff, na.rm = TRUE), .groups = "drop")
+
+# Smoking Status Means
+smoking_summary <- swiss_data_subsidy %>%
+  filter(!is.na(smoking_label)) %>%
+  mutate(Group = "Smoking Status", Subgroup = smoking_label) %>%
+  group_by(Group, Subgroup) %>%
+  summarise(avg_subsidy = mean(income_diff, na.rm = TRUE), .groups = "drop")
+
+# Education Means
+education_summary <- swiss_data_subsidy %>%
+  filter(!is.na(education_label)) %>%
+  mutate(Group = "Education Level", Subgroup = education_label) %>%
+  group_by(Group, Subgroup) %>%
+  summarise(avg_subsidy = mean(income_diff, na.rm = TRUE), .groups = "drop")
+
+# Area Means
+area_summary <- swiss_data_subsidy %>%
+  filter(!is.na(area_label)) %>%
+  mutate(Group = "Area Type", Subgroup = area_label) %>%
+  group_by(Group, Subgroup) %>%
+  summarise(avg_subsidy = mean(income_diff, na.rm = TRUE), .groups = "drop")
+
+# Self-rated Health Means
+health_summary <- swiss_data_subsidy %>%
+  filter(!is.na(health_label)) %>%
+  mutate(Group = "Self-Rated Health", Subgroup = health_label) %>%
+  group_by(Group, Subgroup) %>%
+  summarise(avg_subsidy = mean(income_diff, na.rm = TRUE), .groups = "drop")
+
+# Lives together with a Partner Means
+partner_summary <- swiss_data_subsidy %>%
+  mutate(Group = "Living with Partner", Subgroup = partner_label) %>%
+  group_by(Group, Subgroup) %>%
+  summarise(avg_subsidy = mean(income_diff, na.rm = TRUE), .groups = "drop")
+
+# Receives External Help Means
+external_help_summary <- swiss_data_subsidy %>%
+  filter(sp002_mod %in% c(1, 5)) %>%
+  mutate(
+    external_help_label = case_when(
+      sp002_mod == 1 ~ "External Help",
+      sp002_mod == 5 ~ "No Help"
+    ),
+    Group = "External Help",
+    Subgroup = external_help_label
+  ) %>%
+  group_by(Group, Subgroup) %>%
+  summarise(avg_subsidy = mean(income_diff, na.rm = TRUE), .groups = "drop")
+
+# Income Percentiles Means
+ordered_levels <- c("All",
+                    "1. Percentile", "2. Percentile", "3. Percentile", "4. Percentile", "5. Percentile",
+                    "6. Percentile", "7. Percentile", "8. Percentile", "9. Percentile", "10. Percentile")
+
+income_summary <- swiss_data_subsidy %>%
+  mutate(Group = "Income Percentile", Subgroup = income_percentile_label) %>%
+  group_by(Group, Subgroup) %>%
+  summarise(avg_subsidy = mean(income_diff, na.rm = TRUE), .groups = "drop") %>%
+  mutate(Subgroup = factor(Subgroup, levels = ordered_levels))
+
+# Age Group U50, 50–59, 60–69, 70–79, 80–89 Means
+age_summary <- swiss_data_subsidy %>%
+  filter(!is.na(age_group_label)) %>%
+  mutate(Group = "Age Group", Subgroup = age_group_label) %>%
+  group_by(Group, Subgroup) %>%
+  summarise(avg_subsidy = mean(income_diff, na.rm = TRUE), .groups = "drop")
+
+combined_summary <- bind_rows(mean_overall, gender_summary, smoking_summary, education_summary, area_summary, health_summary, income_summary, age_summary, partner_summary, external_help_summary)
+
+# View table
+combined_summary
+```
+
+```{r Task 4.a.3 - Creating Overall References for Graphs}
+overall_avg <- mean(swiss_data_subsidy$income_diff, na.rm = TRUE)
+
+overall_reference <- combined_summary %>%
+  distinct(Group) %>%
+  mutate(Subgroup = "Sample", avg_subsidy = overall_avg)
+```
+
+```{r 4.a.4 - Graph Visualisation Set-Up}
+final_data <- bind_rows(combined_summary, overall_reference) %>%
+  mutate(
+    Type = case_when(
+      Group %in% c("Gender", "Living with Partner", "Smoking Status", "External Help") ~ "Binary",
+      Group %in% c("Age Group", "Income Percentile", "Education Level", "Area Type", "Self-Rated Health") ~ "Multi",
+      TRUE ~ "Other"
+    )
+  )
+# Remove "Other"/"Unknown"
+final_data <- final_data %>%
+  filter(!Subgroup %in% c("Other", "Unknown"))
+
+# Dynamic label position for binary
+binary_data <- final_data %>%
+  filter(Type == "Binary") %>%
+  mutate(
+    Subgroup = as.character(Subgroup),
+    Subgroup = factor(Subgroup, levels = c("Sample", sort(unique(Subgroup[Subgroup != "Sample"])))),
+    Group = factor(Group),
+    label_vjust = ifelse(avg_subsidy > 10, -0.5, 1.5),
+    )
+
+# Ordering Binary Plots
+binary_demographics <- binary_data %>%
+  filter(Group %in% c("Gender", "Smoking Status"))
+
+binary_support <- binary_data %>%
+  filter(Group %in% c("Living with Partner", "External Help"))
+
+# Dynamic label position for multi
+multi_data <- final_data %>%
+  filter(Type == "Multi", Group != "Income Percentile", !Subgroup %in% c("Other", "Unknown")) %>%
+  group_by(Group) %>%
+  arrange(Group, desc(avg_subsidy)) %>%
+  mutate(
+    Subgroup = factor(Subgroup, levels = c("Sample", setdiff(Subgroup, "Sample"))),
+    label_vjust = ifelse(avg_subsidy > 10, -0.5, 1.5)
+  ) %>%
+  ungroup()
+
+# Income Percentile Bar Graph Ordering
+income_summary <- income_summary %>%
+  mutate(
+    Subgroup = factor(Subgroup, levels = c(
+      "Sample",
+      "1. Percentile", "2. Percentile", "3. Percentile", "4. Percentile", "5. Percentile",
+      "6. Percentile", "7. Percentile", "8. Percentile", "9. Percentile", "10. Percentile"
+    )),
+    label_vjust = ifelse(avg_subsidy > 10, -0.5, 1.5)
+  )
+
+# Blue customised color palette
+blue_palette <- colorRampPalette(brewer.pal(9, "Blues"))
+n_colors_binary <- length(unique(binary_data$Subgroup))
+n_colors_multi <- length(unique(multi_data$Subgroup))
+n_colors_income <- length(unique(income_summary$Subgroup))
+```
+
+```{r 4.a.5.1 - Binary Variable Plots}
+
+# Binary Plot 1 - Gender and Smoking
+ggplot(binary_demographics, aes(x = Subgroup, y = avg_subsidy, fill = Subgroup)) +
+  geom_col(width = 0.7, color = "black") +
+  geom_text(aes(label = round(avg_subsidy, 1), vjust = label_vjust),
+            fontface = "bold", size = 4, color = "black") +
+  facet_wrap(~ Group, scales = "free_x") +
+  scale_y_continuous(labels = comma_format(accuracy = 1), limits = c(0, 60)) +
+  scale_fill_manual(values = blue_palette(length(unique(binary_demographics$Subgroup)))) +
+  labs(
+    title = "Doctoral Visit Subsidy – Binary Variable Plot",
+    subtitle = "Gender and Smoking Status Comparison",
+    x = NULL, y = "Average Subsidy (EUR)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    strip.text = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1, face = "bold"),
+    axis.text.y = element_text(face = "bold"),
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "none"
+  )
+
+# Binary Plot 2 - External Help and Living with Partner
+ggplot(binary_support, aes(x = Subgroup, y = avg_subsidy, fill = Subgroup)) +
+  geom_col(width = 0.7, color = "black") +
+  geom_text(aes(label = round(avg_subsidy, 1), vjust = label_vjust),
+            fontface = "bold", size = 4, color = "black") +
+  facet_wrap(~ Group, scales = "free_x") +
+  scale_y_continuous(labels = comma_format(accuracy = 1), limits = c(0, 80)) +
+  scale_fill_manual(values = blue_palette(length(unique(binary_support$Subgroup)))) +
+  labs(
+    title = "Doctoral Visit Subsidy – Binary Variable Plot",
+    subtitle = "Living with a Partner and External Help Comparison",
+    x = NULL, y = "Average Subsidy (EUR)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    strip.text = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1, face = "bold"),
+    axis.text.y = element_text(face = "bold"),
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "none"
+  )
+```
+
+```{r 4.a.5.2 - Multicategorial Variable Plots}
+
+# Multi-category Plot
+ggplot(multi_data, aes(x = Subgroup, y = avg_subsidy, fill = Subgroup)) +
+  geom_col(width = 0.7, color = "black") +
+  geom_text(
+    aes(
+      label = round(avg_subsidy, 1),
+      vjust = ifelse(Subgroup == "Poor", 1.8, label_vjust),
+      color = ifelse(Subgroup == "Poor", "white", "black")
+    ),
+    fontface = "bold", size = 4
+  ) +
+  facet_wrap(~ Group, scales = "free_x") +
+  scale_y_continuous(labels = comma_format(accuracy = 1)) +
+  scale_fill_manual(values = blue_palette(n_colors_multi)) +
+  scale_color_identity() +  # <--- needed for custom label color
+  labs(
+    title = "Doctoral Visit Subsidy – Multicategorial Variable Plots",
+    subtitle = "Reference 'All' shown first, categories sorted by average subsidy",
+    x = NULL, y = "Average Subsidy (EUR)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    strip.text = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1, face = "bold"),
+    axis.text.y = element_text(face = "bold"),
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "none"
+  )
+
+```
+
+```{r 4.a.5.3 - Income Percentile Plot}
+
+# Income Percentile Plot
+ggplot(income_summary, aes(x = Subgroup, y = avg_subsidy, fill = Subgroup)) +
+  geom_col(width = 0.7, color = "black") +
+  geom_text(
+    aes(label = round(avg_subsidy, 1), vjust = label_vjust),
+    size = 4, fontface = "bold", color = "black"
+  ) +
+  scale_fill_manual(values = blue_palette(n_colors_income)) +
+  scale_y_continuous(labels = comma_format(accuracy = 1)) +
+  labs(
+    title = "Doctoral Visit Subsidy - Income Percentiles",
+    subtitle = "Ordered from lowest income (1st Percentile) to highest income (10th Percentile)",
+    x = NULL, y = "Average Subsidy (EUR)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, face = "bold"),
+    axis.text.y = element_text(face = "bold"),
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    legend.position = "none"
+  )
+```
+### Task b)
+
+How does the subsidy affect poverty? Provide a quantitative measure and justify your answer.
+
+```{r 4.b.1 - Poverty Baseline Computation}
+# Poverty line according to EUROSTAT (2023)
+poverty_line <- median(swiss_data_subsidy$thinc_m, na.rm = TRUE) * 0.6
+
+print(poverty_line)
+
+# Setting individuals who have been considered poor before and after subsidy
+swiss_data_subsidy <- swiss_data_subsidy %>%
+  mutate(
+    poor_before = ifelse(thinc_m < poverty_line, 1, 0),
+    poor_after  = ifelse(adjusted_income < poverty_line, 1, 0)
+  )
+
+# Computation of poverty rates
+poverty_stats <- swiss_data_subsidy %>%
+  summarise(
+    poverty_rate_before = mean(poor_before, na.rm = TRUE),
+    poverty_rate_after = mean(poor_after, na.rm = TRUE),
+    change_in_poverty = poverty_rate_after - poverty_rate_before
+  )
+```
+
+### Task c)
+
+Quantify the redistributive consequences of the subsidy, using two different inequality indicators we covered in class. Justify your choice of indicators and interpret your results.
+
+```{r 4.b.2 Atkinson-Index Computation}
+
+ineq_data <- swiss_data_subsidy %>%
+  filter(!is.na(thinc_m), !is.na(adjusted_income), thinc_m > 0, adjusted_income > 0)
+
+epsilon <- 1  
+
+# Atkinson-Index Pre-After Values
+atkinson_before <- Atkinson(ineq_data$thinc_m, parameter = epsilon)
+atkinson_after <- Atkinson(ineq_data$adjusted_income, parameter = epsilon)
+
+atkinson_change <- atkinson_after - atkinson_before
+
+tibble(
+  `Atkinson Before Subsidy` = atkinson_before,
+  `Atkinson After Subsidy` = atkinson_after,
+  `Change in Atkinson` = atkinson_change
+)
+```
+```{r Task 4.b.3 - THEIL-L and THEIL-T Measure Computation}
+
+ineq_data <- swiss_data_subsidy %>%
+  filter(!is.na(thinc_m), !is.na(adjusted_income), thinc_m > 0, adjusted_income > 0)
+
+# Theil-T (GE(1)) 
+theil_t_before <- Theil(ineq_data$thinc_m, parameter = 1)
+theil_t_after  <- Theil(ineq_data$adjusted_income, parameter = 1)
+
+# Theil-L (GE(0)) 
+theil_l_before <- Theil(ineq_data$thinc_m, parameter = 0)
+theil_l_after  <- Theil(ineq_data$adjusted_income, parameter = 0)
+
+tibble(
+  `Theil-T Before` = theil_t_before,
+  `Theil-T After` = theil_t_after,
+  `Change T` = theil_t_after - theil_t_before,
+  `Theil-L Before` = theil_l_before,
+  `Theil-L After` = theil_l_after,
+  `Change L` = theil_l_after - theil_l_before
+)
+```
+## Task 5 
+
+### a)
+
+Propose a method to take these behavioral responses into account and simulate the impact of the subsidy on the number of visits to the doctor. Justify your methodology with 2-3 references
+from economic journals.
+
+```{r Task 5.a - Final Change in Doctoral Visitis due to Behavioral Change}
+# Constants
+price_before <- 30
+price_after <- 20
+elasticity <- -0.2
+
+# Arc elasticity factor
+delta_visits_factor <- 1 + elasticity * ((price_after - price_before) / ((price_after + price_before) / 2))
+
+# Apply elasticity + individualized income approach
+swiss_data_elastic <- swiss_data_subsidy %>%
+  mutate(
+    visits_adjusted = hc002_mod * delta_visits_factor,
+    subsidy_behavior = visits_adjusted * 10,
+    adjusted_income_behavior = (thinc_m + subsidy_behavior) / hhsize.y,
+    baseline_income_indiv = thinc_m / hhsize.y
+  )
+
+# Final Change in Doctoral Visits due to Behavioral Change
+visits_impact <- swiss_data_elastic %>%
+  summarise(
+    avg_visits_before = mean(hc002_mod, na.rm = TRUE),
+    avg_visits_after = mean(visits_adjusted, na.rm = TRUE),
+    change_visits = avg_visits_after - avg_visits_before,
+    percent_increase = 100 * (change_visits / avg_visits_before),
+
+    avg_income_before = mean(baseline_income_indiv, na.rm = TRUE),
+    avg_income_after = mean(adjusted_income_behavior, na.rm = TRUE),
+    income_gain = avg_income_after - avg_income_before,
+    percent_income_gain = 100 * (income_gain / avg_income_before)
+  )
+
+print(visits_impact)
+
+```
+
+
